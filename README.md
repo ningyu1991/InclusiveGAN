@@ -1,6 +1,16 @@
 # InclusiveGAN
 
 ## Interpolation from majority to minority
+The 1st column: Arbitrary real image for the beginning frame
+
+The 2nd column: StyleGAN2
+
+The 3rd column: Ours general
+
+The 4th column: Ours minority inclusion
+
+The 5th column: Minority real image for the end frame
+
 - *Eyeglasses*
 <img src='fig/Video1_interp_Eyeglasses.gif' width=800>
 
