@@ -1,6 +1,7 @@
 # InclusiveGAN
 
-<img src='fig/teaser.png' width=400> <img src='fig/rec_minority.png' width=400>
+<p align="center"><img src='fig/teaser.png' width=400></p>
+<img src='fig/rec_minority.png' width=800>
 
 - Official Tensorflow implementation for our [ECCV'20 paper](https://arxiv.org/pdf/2004.03355.pdf) ([video](https://www.youtube.com/watch?v=oCb4cpsQ7do), [media coverage](https://mp.weixin.qq.com/s/6CCWQY8d0NoHEuMqWEp2dw) in Chinese) on improving mode coverage and minority inclusion of GAN. We combine GAN and [IMLE](https://www.math.ias.edu/~ke.li/projects/imle/) objectives to get the best of both worlds.
 - Contact: Ning Yu (ningyu AT mpi-inf DOT mpg DOT de)
