@@ -45,4 +45,4 @@ Generative Adversarial Networks (GANs) have brought about rapid progress towards
 - NVIDIA GPU + CUDA 10.0 + CuDNN 7.5
 - Python 3.6
 - tensorflow-gpu 1.14
-
+- [DCI](https://www.math.ias.edu/~ke.li/projects/dci/) for fast kNN search. Follow the instructions in `dci_code/Makefile` to set up several paths and build the DCI Python interface.
