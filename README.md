@@ -41,3 +41,8 @@ The 5th column: A minority real image for the end frame to reconstruct<br>
 Generative Adversarial Networks (GANs) have brought about rapid progress towards generating photorealistic images. Yet the equitable allocation of their modeling capacity among subgroups has received less attention, which could lead to potential biases against underrepresented minorities if left uncontrolled. In this work, we first formalize the problem of minority inclusion as one of data coverage, and then propose to improve data coverage by harmonizing adversarial training with reconstructive generation. The experiments show that our method outperforms the existing state-of-the-art methods in terms of data coverage on both seen and unseen data. We develop an extension that allows explicit control over the minority subgroups that the model should ensure to include, and validate its effectiveness at little compromise from the overall performance on the entire dataset.
 
 ## Prerequisites
+- Linux
+- NVIDIA GPU + CUDA 10.0 + CuDNN 7.5
+- Python 3.6
+- tensorflow-gpu 1.14
+
