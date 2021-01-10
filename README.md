@@ -60,7 +60,7 @@ We experiment on two datasets:
 - Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [aligned and cropped images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/`, then run
   ```
   python3 dataset_tool.py create_celeba \
-  datasets/celeba_align_png_cropped_30k \
+  datasets/celeba_align_png_cropped_30k/ \
   celeba/Img/img_align_celeba_png/ \
   --num_images 30000
   ```
