@@ -52,16 +52,16 @@ We experiment on two datasets:
 - Preliminary study on Stacked MNIST dataset. We synthesize 240k images by stacking the RGB channels with random MNIST images, resulting in 1,000 discrete modes (10 digit modes for each of the 3 channels). We zero-pad the image from size 28x28 to size 32x32. To prepare the dataset, first download the [MNIST .gz files](http://yann.lecun.com/exdb/mnist/) to `mnist/`, then run
   ```
   python3 dataset_tool.py create_mnistrgb \
-  datasets/stacked_mnist_240k/ \
-  mnist/ \
+  datasets/stacked_mnist_240k \
+  mnist \
   --num_images 240000
   ```
   where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
 - Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
-  datasets/celeba_align_png_cropped_30k/ \
-  celeba/Img/img_align_celeba_png/ \
+  datasets/celeba_align_png_cropped_30k \
+  celeba/Img/img_align_celeba_png \
   --num_images 30000
   ```
   where `datasets/celeba_align_png_cropped_30k/` is the output directory containing the prepared data format that enables efficient streaming for our training, and `celeba/Img/img_align_celeba_png/` is the input directory containing CelebA png files.
