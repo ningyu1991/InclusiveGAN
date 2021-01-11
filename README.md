@@ -57,7 +57,7 @@ We experiment on two datasets:
   --num_images 240000
   ```
   where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
-- Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [aligned and cropped images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/`, then run
+- Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
   datasets/celeba_align_png_cropped_30k/ \
