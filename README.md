@@ -158,6 +158,6 @@ We experiment on two datasets:
   ```
 
 ## Acknowledgement
-- This project was partially funded by DARPA MediFor program under cooperative agreement FA87501620191 and by ONR MURI (N00014-14-1-0671).
+- This project was partially funded by DARPA MediFor program under cooperative agreement FA87501620191 and by ONR MURI N00014-14-1-0671.
 - We acknowledge [Richard Zhang](http://richzhang.github.io/) and [Dingfan Chen](https://cispa.de/en/people/dingfan.chen#publications) for their constructive advice in general.
 - We express gratitudes to the [StyleGAN2 repository](https://github.com/NVlabs/stylegan2) as our code was directly modified from theirs. We also thank the [precision-recall-distributions repository](https://github.com/msmsajjadi/precision-recall-distributions) for precision and recall calculation.
