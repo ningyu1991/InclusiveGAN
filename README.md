@@ -110,7 +110,7 @@ We experiment on two datasets:
   --num-images=30000
   ```
   where `result-dir` contains generated samples in png.
-- **Precision and Recall calculation**. Clone [this](https://github.com/msmsajjadi/precision-recall-distributions) as `precision-recall-distributions/` and install its dependencies accordingly. Then run, e.g.,
+- **Precision and Recall calculation**. Clone [this repository](https://github.com/msmsajjadi/precision-recall-distributions) as `precision-recall-distributions/` and install its dependencies accordingly. Then run, e.g.,
   ```
   python3 precision-recall-distributions/prd_from_image_folders.py \
   --reference_dir=celeba/Img/img_align_celeba_png_cropped_30k \
@@ -118,4 +118,6 @@ We experiment on two datasets:
   --eval_labels test_model
   ```
   where
-  - `reference_dir`: The directory containing reference real images in png. 
+  - `reference_dir`: The directory containing reference real images in png. **For original CelebA aligned images, they need to be center-cropped at (x,y) = (89,121) with size 128x128 in advance.**
+  - `eval_dirs`: The directory(ies) containing generated images in png for precision and recall calculation. It allows multiple inputs, each corresponding to one source of generation.
+  - `eval_labels`: The label(s) of the source(s) of generation.
