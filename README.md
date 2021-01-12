@@ -136,7 +136,7 @@ We experiment on two datasets:
   - `eval_labels`: The label(s) of the source(s) of generation.
   Upon finish, the precision and recall values are printed out in the terminal.
 
-- **Inference via Optimization Measure (IvOM) calculation**
+- **Inference via Optimization Measure (IvOM) calculation**. Run, e.g.,
   ```
   python3 run_projector.py project-real-images --data-dir=datasets \
   --dataset=celeba_align_png_cropped_30k \
