@@ -52,20 +52,20 @@ We experiment on two datasets:
 - Preliminary study on **Stacked MNIST** dataset. We synthesize 240k images by stacking the RGB channels with random MNIST images, resulting in 1,000 discrete modes (10 digit modes for each of the 3 channels). We zero-pad the image from size 28x28 to size 32x32. To prepare the dataset, first download the [MNIST .gz files](http://yann.lecun.com/exdb/mnist/) to `mnist/`, then run
   ```
   python3 dataset_tool.py create_mnistrgb \
-  datasets/stacked_mnist_240k/ \
-  mnist/ \
+  datasets/stacked_mnist_240k \
+  mnist \
   --num_images 240000
   ```
-  where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
+  where `datasets/stacked_mnist_240k` is the output directory containing the prepared data format that enables efficient streaming for our training.
   
 - Main study including minority inclusion on **CelebA** dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [CelebA aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
-  datasets/celeba_align_png_cropped_30k/ \
-  celeba/Img/img_align_celeba_png/ \
+  datasets/celeba_align_png_cropped_30k \
+  celeba/Img/img_align_celeba_png \
   --num_images 30000
   ```
-  where `datasets/celeba_align_png_cropped_30k/` is the output directory containing the prepared data format that enables efficient streaming for our training, and `celeba/Img/img_align_celeba_png/` is the input directory containing CelebA png files.
+  where `datasets/celeba_align_png_cropped_30k` is the output directory containing the prepared data format that enables efficient streaming for our training, and `celeba/Img/img_align_celeba_png` is the input directory containing CelebA png files.
 
 ## Training
 - For **Stacked MNIST**, run, e.g.,
@@ -104,6 +104,17 @@ We experiment on two datasets:
   - Unzip and put under `models/`.
 
 ## Evaluation
+- **Fréchet inception distance (FID) calculation**. Besides the FID calculation for snapshots during training, we can also calculate FID given any well-trained network and reference real images. Run, e.g.,
+  ```
+  python3 run_metrics.py --metrics=fid30k --data-dir=datasets \
+  --dataset=celeba_align_png_cropped_30k \
+  --network=models/celeba_align_png_cropped_30k.pkl \
+  --result-dir=results/celeba_align_png_cropped_30k
+  ```
+  where
+  - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of reference real data that enables efficient streaming for  evaluation.
+  - `result-dir`: The output directory containing the calculation result, log file, and so on.
+
 - **Image generation**. Run, e.g.,
   ```
   python3 run_generator.py generate-images \
@@ -124,3 +135,6 @@ We experiment on two datasets:
   - `reference_dir`: The directory containing reference real images in png. **For original CelebA aligned images, they need to be center-cropped at (x,y) = (89,121) with size 128x128 in advance.**
   - `eval_dirs`: The directory(ies) containing generated images in png for precision and recall calculation. It allows multiple inputs, each corresponding to one source of generation.
   - `eval_labels`: The label(s) of the source(s) of generation.
+
+- **Inference via Optimization Measure (IvOM) calculation**
+  
