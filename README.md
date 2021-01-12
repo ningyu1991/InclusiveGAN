@@ -128,7 +128,7 @@ We experiment on two datasets:
   python3 precision-recall-distributions/prd_from_image_folders.py \
   --reference_dir=celeba/Img/img_align_celeba_png_cropped_30k \
   --eval_dirs=generation/celeba_align_png_cropped_30k/00000-generate-images \
-  --eval_labels test_model
+  --eval_labels=test_model
   ```
   where
   - `reference_dir`: The directory containing reference real images in png. **For original CelebA aligned images, they need to be center-cropped at (x,y) = (89,121) with size 128x128 in advance.**
