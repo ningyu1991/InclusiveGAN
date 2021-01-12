@@ -145,5 +145,5 @@ We experiment on two datasets:
   --result-dir=ivom/celeba_align_png_cropped_30k \
   --num-images=3000
   ```
-  - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of reference real data that enables efficient streaming for  evaluation.
+  - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of real query data that enables efficient streaming for  reconstruction.
   - `result-dir`: The output directory containing `image*-target.png` as real queral images, `image*-step0400.png` as reconstructed images from the well-trained generator, log file, and so on. Upon finish, the mean and std of IvOM are printed out in the terminal.
