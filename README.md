@@ -147,3 +147,18 @@ We experiment on two datasets:
   ```
   - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of real query data that enables efficient streaming for  reconstruction.
   - `result-dir`: The output directory containing `image*-target.png` as real queral images, `image*-step0400.png` as reconstructed images from the well-trained generator, log file, and so on. Upon finish, the mean and std of IvOM are printed out in the terminal.
+
+## Citation
+  ```
+  @inproceedings{yu2020inclusive,
+    author = {Yu, Ning and Li, Ke and Zhou, Peng and Malik, Jitendra and Davis, Larry and Fritz, Mario},
+    title = {Inclusive GAN: Improving Data and Minority Coverage in Generative Models},
+    booktitle = {European Conference on Computer Vision (ECCV)},
+    year = {2020}
+  }
+  ```
+
+## Acknowledgement
+- This project was partially funded by DARPA MediFor program under cooperative agreement FA87501620191 and by ONR MURI (N00014-14-1-0671).
+- We acknowledge [Richard Zhang](http://richzhang.github.io/) and [Dingfan Chen](https://cispa.de/en/people/dingfan.chen#publications) for constructive advice in general.
+- We express gratitudes to the [StyleGAN2 repository](https://github.com/NVlabs/stylegan2) as our code was directly modified from theirs. We also thank the [precision-recall-distributions repository](https://github.com/msmsajjadi/precision-recall-distributions) for precision and recall calculation.
