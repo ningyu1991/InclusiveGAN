@@ -93,10 +93,10 @@ We experiment on two datasets:
   
 ## Pre-trained models
 - The pre-trained Inclusive GAN models can be downloaded from:
-  - Stacked MNIST 240k
-  - CelebA 30k
-  - CelebA 30k Eyeglasses inclusion
-  - CelebA 30k Bald inclusion
-  - CelebA 30k Narrow_Eyes,Heavy_Makeup inclusion
-  - CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive inclusion
+  - [Stacked MNIST 240k](https://drive.google.com/file/d/1K8gPgaUcAfukR7tQjPHQXwI52AErgr9-/view?usp=sharing)
+  - [CelebA 30k](https://drive.google.com/file/d/1C8j0nTmoWFMI3O8l5-xpXz4DT_Ha3sI0/view?usp=sharing)
+  - [CelebA 30k Eyeglasses inclusion](https://drive.google.com/file/d/1AMIUKiPoibdwCruEGAVtXmNCvuIhPOBR/view?usp=sharing)
+  - [CelebA 30k Bald inclusion](https://drive.google.com/file/d/11dvlFb2Z87eMdxJmML3vWJzkripuYBZA/view?usp=sharing)
+  - [CelebA 30k Narrow_Eyes,Heavy_Makeup inclusion](https://drive.google.com/file/d/1B94OFdbyMzBL3oKA_o-waj3ytDGL3P8G/view?usp=sharing)
+  - [CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive inclusion](https://drive.google.com/file/d/13nmgYX4PXix_2Du9v4DaZdco78QR-vT5/view?usp=sharing)
   - Unzip and put under `models/`.
