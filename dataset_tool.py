@@ -19,9 +19,6 @@ import PIL.Image
 import skimage
 import skimage.io
 
-#import tfutil
-#import dataset
-
 #----------------------------------------------------------------------------
 
 def error(msg):
@@ -329,12 +326,11 @@ def create_mnistrgb(tfrecord_dir, mnist_dir, num_images=1000000, random_seed=123
             indices = rnd.randint(images.shape[0], size=3)
             tfr.add_image(images[indices])
             labels_rgb.append(labels[indices[0]]+labels[indices[1]]*10+labels[indices[2]]*100)
-    labels_rgb = np.array(labels_rgb).astype(np.float64)
-    assert labels_rgb.shape == (num_images,) and labels_rgb.dtype == np.float64
-    assert np.min(labels_rgb) == 0 and np.max(labels_rgb) == 999
-    onehot = np.zeros((labels_rgb.size, int(np.max(labels_rgb))+1), dtype=np.float32)
-    onehot[np.arange(labels_rgb.size), labels_rgb.astype(np.uint16)] = 1.0
-    with TFRecordExporter(tfrecord_dir, num_images) as tfr:
+        labels_rgb = np.array(labels_rgb).astype(np.float64)
+        assert labels_rgb.shape == (num_images,) and labels_rgb.dtype == np.float64
+        assert np.min(labels_rgb) == 0 and np.max(labels_rgb) == 999
+        onehot = np.zeros((labels_rgb.size, int(np.max(labels_rgb))+1), dtype=np.float32)
+        onehot[np.arange(labels_rgb.size), labels_rgb.astype(np.uint16)] = 1.0
         tfr.add_labels(onehot)
 
 #----------------------------------------------------------------------------
@@ -448,7 +444,7 @@ def create_lsun(tfrecord_dir, lmdb_dir, resolution=256, max_images=None):
         
 #----------------------------------------------------------------------------
 
-def create_celeba(tfrecord_dir, celeba_dir, cx=89, cy=121, shuffle=0, num_images=0, num_shifts=0):
+def create_celeba(tfrecord_dir, celeba_dir, cx=89, cy=121, shuffle=0, num_images=0, num_shifts=0, export_attr=1):
     print('Loading CelebA from "%s"' % celeba_dir)
     glob_pattern = os.path.join(celeba_dir, '*.png')
     image_filenames = sorted(glob.glob(glob_pattern))
@@ -468,6 +464,26 @@ def create_celeba(tfrecord_dir, celeba_dir, cx=89, cy=121, shuffle=0, num_images
             img = img[cy - 64 : cy + 64, cx - 64 : cx + 64]
             img = img.transpose(2, 0, 1) # HWC => CHW
             tfr.add_image(img)
+        if export_attr:
+            attr_file = 'celeba/Anno/list_attr_celeba.txt'
+            assert os.path.isfile(attr_file)
+            with open(attr_file) as f:
+                lines = f.readlines()
+            lines = lines[2:]
+            file_attr_dict = {}
+            for line in lines:
+                attr_vec = line.replace('-1', '0')
+                attr_vec = attr_vec.split()
+                name = attr_vec[0]
+                attr_vec = attr_vec[1:]
+                attr_vec = list(map(int, attr_vec))
+                file_attr_dict[name] = list(attr_vec)
+            labels = []
+            for file in image_filenames_new:
+                file_name = file.split('/')[-1]
+                labels.append(file_attr_dict[file_name.replace('png','jpg')])
+            labels = np.array(labels).astype(np.float32)
+            tfr.add_labels(labels[order])
 
 #----------------------------------------------------------------------------
 
@@ -621,7 +637,7 @@ def create_celebahq(tfrecord_dir, out_img_dir, celeba_dir, delta_dir, num_thread
 
 #----------------------------------------------------------------------------
 
-def create_from_images(tfrecord_dir, image_dir, shuffle=1, num_images=0, num_shifts=0, export_attr=0):
+def create_from_images(tfrecord_dir, image_dir, shuffle=1, num_images=0, num_shifts=0):
     print('Loading images from "%s"' % image_dir)
     image_filenames = sorted(glob.glob(os.path.join(image_dir, '*.png')))
     if shuffle:
@@ -652,62 +668,6 @@ def create_from_images(tfrecord_dir, image_dir, shuffle=1, num_images=0, num_shi
                 img = np.dstack((img, img, img)) # HW => CHW
             img = img.transpose(2, 0, 1) # HWC => CHW
             tfr.add_image(img)
-        if export_attr:
-            attr_file = '../CelebA/list_attr_celeba.txt'
-            assert os.path.isfile(attr_file)
-            with open(attr_file) as f:
-                lines = f.readlines()
-            lines = lines[2:]
-            file_attr_dict = {}
-            for line in lines:
-                attr_vec = line.replace('-1', '0')
-                attr_vec = attr_vec.split()
-                name = attr_vec[0]
-                attr_vec = attr_vec[1:]
-                attr_vec = list(map(int, attr_vec))
-                file_attr_dict[name] = list(attr_vec)
-            labels = []
-            for file in image_filenames_new:
-                file_name = file.split('/')[-1]
-                labels.append(file_attr_dict[file_name.replace('png','jpg')])
-            labels = np.array(labels).astype(np.float32)
-            tfr.add_labels(labels[order])
-
-#----------------------------------------------------------------------------
-
-def create_from_animal_faces(tfrecord_dir, image_dir, shuffle=1):
-    print('Loading images from "%s"' % image_dir)
-    image_filenames = []
-    labels = []
-    for idx, source_dir in enumerate(sorted(os.listdir(image_dir))):
-        image_filenames += sorted(glob.glob(os.path.join(image_dir, source_dir, '*.png')))
-        labels += [idx] * len(glob.glob(os.path.join(image_dir, source_dir, '*.png')))
-    if len(image_filenames) == 0:
-        error('No input images found')
-    labels = np.array(labels, dtype=int)
-    onehot = np.zeros((labels.size, np.max(labels) + 1), dtype=np.float32)
-    onehot[np.arange(labels.size), labels] = 1.0
-        
-    img = np.asarray(PIL.Image.open(image_filenames[0]))
-    resolution = img.shape[0]
-    channels = img.shape[2] if img.ndim == 3 else 1
-    if img.shape[1] != resolution:
-        error('Input images must have the same width and height')
-    if resolution != 2 ** int(np.floor(np.log2(resolution))):
-        error('Input image resolution must be a power-of-two')
-    if channels not in [1, 3]:
-        error('Input images must be stored as RGB or grayscale')
-    
-    with TFRecordExporter(tfrecord_dir, len(image_filenames)) as tfr:
-        order = tfr.choose_shuffled_order() if shuffle else np.arange(len(image_filenames))
-        for idx in range(order.size):
-            img = np.asarray(PIL.Image.open(image_filenames[order[idx]]))
-            if channels == 1:
-                img = img[np.newaxis, :, :] # HW => CHW
-            else:
-                img = img.transpose(2, 0, 1) # HWC => CHW
-            tfr.add_image(img)
-        tfr.add_labels(onehot[order])
 
 #----------------------------------------------------------------------------
 
@@ -797,6 +757,7 @@ def execute_cmdline(argv):
     p.add_argument(     '--shuffle',        help='Randomize image order (default: 1)', type=int, default=1)
     p.add_argument(     '--num_images',     help='Number of images to be considered (default: all)', type=int, default=0)
     p.add_argument(     '--num_shifts',     help='Number of image index shifts to be considered (default: 0)', type=int, default=0)
+    p.add_argument(     '--export_attr',    help='Export image binary attribute vector (default: 1)', type=int, default=1)
 
     p = add_command(    'create_celebahq',  'Create dataset for CelebA-HQ.',
                                             'create_celebahq datasets/celebahq ~/downloads/celeba ~/downloads/celeba-hq-deltas')
@@ -815,7 +776,6 @@ def execute_cmdline(argv):
     p.add_argument(     '--shuffle',        help='Randomize image order (default: 1)', type=int, default=1)
     p.add_argument(     '--num_images',     help='Number of images to be considered (default: all)', type=int, default=0)
     p.add_argument(     '--num_shifts',     help='Number of image index shifts to be considered (default: 0)', type=int, default=0)
-    p.add_argument(     '--export_attr',    help='Export image binary attribute vector (default: 0)', type=int, default=0)
 
     p = add_command(    'create_from_animal_faces', 'Create dataset from an animal face directory',
                                             'create_from_images datasets/mydataset myimagedir')
