@@ -45,7 +45,7 @@ Generative Adversarial Networks (GANs) have brought about rapid progress towards
 - tensorflow-gpu 1.14
 - Other Python dependencies: numpy, scipy, Pillow, skimage, sklearn, six
 - [DCI](https://www.math.ias.edu/~ke.li/projects/dci/) for fast kNN search. Follow the instructions in `dci_code/Makefile` to specify paths to BLAS, Python, NumPy in the file, and build the DCI Python interface.
-- [Precision and Recall] calculation. `pip3 install -r precision-recall-distributions/requirements.txt`
+- [Precision and Recall](https://github.com/ningyu1991/InclusiveGAN/tree/master/precision-recall-distributions) calculation. `pip3 install -r precision-recall-distributions/requirements.txt`
 
 ## Datasets
 We experiment on two datasets:
