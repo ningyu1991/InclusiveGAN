@@ -109,7 +109,7 @@ We experiment on two datasets:
   python3 run_metrics.py --metrics=fid30k --data-dir=datasets \
   --dataset=celeba_align_png_cropped_30k \
   --network=models/celeba_align_png_cropped_30k.pkl \
-  --result-dir=results/celeba_align_png_cropped_30k
+  --result-dir=fid/celeba_align_png_cropped_30k
   ```
   where
   - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of reference real data that enables efficient streaming for  evaluation.
@@ -135,6 +135,15 @@ We experiment on two datasets:
   - `reference_dir`: The directory containing reference real images in png. **For original CelebA aligned images, they need to be center-cropped at (x,y) = (89,121) with size 128x128 in advance.**
   - `eval_dirs`: The directory(ies) containing generated images in png for precision and recall calculation. It allows multiple inputs, each corresponding to one source of generation.
   - `eval_labels`: The label(s) of the source(s) of generation.
+  Upon finish, the precision and recall values are printed out in the terminal.
 
 - **Inference via Optimization Measure (IvOM) calculation**
-  
+  ```
+  python3 run_projector.py project-real-images --data-dir=datasets \
+  --dataset=celeba_align_png_cropped_30k \
+  --network=models/celeba_align_png_cropped_30k.pkl \
+  --result-dir=ivom/celeba_align_png_cropped_30k \
+  --num-images=3000
+  ```
+  - `datasets/celeba_align_png_cropped_30k`: The input directory containing the prepared format of reference real data that enables efficient streaming for  evaluation.
+  - `result-dir`: The output directory containing `image*-target.png` as real queral images, `image*-step0400.png` as reconstructed images from the well-trained generator, log file, and so on. Upon finish, the mean and std of IvOM are printed out in the terminal.
