@@ -57,6 +57,7 @@ We experiment on two datasets:
   --num_images 240000
   ```
   where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
+  
 - Main study including minority inclusion on **CelebA** dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [CelebA aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
@@ -78,6 +79,7 @@ We experiment on two datasets:
   where
   - `metrics`: Evaluation metric(s). `mode_counts_24k` counts for the digit modes (max 1,000) of 24k randomly generated samples. `KL24k` measures their KL divergence to the uniform distribution. The evaluation results are saved in `results/stacked_mnist_240k/metric-mode_counts_24k.txt` and `results/stacked_mnist_240k/metric-KL24k.txt` respectively.
   - `result-dir` also contains real samples `arb-reals.png`, randomly generated samples at different snapshots `arb-fakes-*.png`, real samples for IMLE reconstruction `rec-reals.png`, generated samples at different snapshots for those reconstructions `rec-fakes-*.png`, log file `log.txt`, tensorboard plots `events.out.tfevents.*`, and so on.
+  
 - For **CelebA**, run, e.g.,
   ```
   python3 run_training.py --data-dir=datasets --config=config-e-Gskip-Dresnet --num-gpus=2 \
