@@ -8,7 +8,7 @@ ECCV 2020
 <p align="center"><img src='fig/teaser.png' width=400></p>
 <img src='fig/rec_minority.png' width=800>
 
-- Official Tensorflow implementation for our [ECCV'20 paper](https://arxiv.org/pdf/2004.03355.pdf) on improving mode coverage and minority inclusion of GANs. We combine GAN and [IMLE](https://www.math.ias.edu/~ke.li/projects/imle/) objectives to get the best of both worlds.<br>
+- Official Tensorflow implementation for our [ECCV'20 paper](https://arxiv.org/pdf/2004.03355.pdf) on improving mode coverage and minority inclusion of GANs. We combine [StyleGAN2](https://github.com/NVlabs/stylegan2) and [IMLE](https://www.math.ias.edu/~ke.li/projects/imle/) objectives to get the best of both worlds.<br>
 - Contact: Ning Yu (ningyu AT mpi-inf DOT mpg DOT de)
 
 ## Image reconstruction
@@ -57,7 +57,7 @@ We experiment on two datasets:
   --num_images 240000
   ```
   where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
-- Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
+- Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [CelebA aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
   datasets/celeba_align_png_cropped_30k/ \
@@ -65,3 +65,38 @@ We experiment on two datasets:
   --num_images 30000
   ```
   where `datasets/celeba_align_png_cropped_30k/` is the output directory containing the prepared data format that enables efficient streaming for our training, and `celeba/Img/img_align_celeba_png/` is the input directory containing CelebA png files.
+
+## Training
+- For Stacked MNIST, run, e.g.,
+  ```
+  python3 run_training.py --data-dir=datasets --config=config-e-Gskip-Dresnet --num-gpus=2 \
+  --metrics=mode_counts_24k,KL24k \
+  --dataset=stacked_mnist_240k \
+  --result-dir=results/stacked_mnist_240k \
+  --data-size=240000
+  ```
+  where
+  - `metrics`: Evaluation metric(s). `mode_counts_24k` counts for the digit modes (max 1,000) of 24k randomly generated samples. `KL24k` measures their KL divergence to the uniform distribution. The evaluation results are saved in `results/stacked_mnist_240k/metric-mode_counts_24k.txt` and `results/stacked_mnist_240k/metric-KL24k.txt` respectively.
+  - `result-dir` also contains real samples `arb-reals.png`, randomly generated samples at different snapshots `arb-fakes-*.png`, real samples for IMLE reconstruction `rec-reals.png`, generated samples at different snapshots for those reconstructions `rec-fakes-*.png`, log file `log.txt`, tensorboard plots `events.out.tfevents.*`, and so on.
+- For CelebA, run, e.g.,
+  ```
+  python3 run_training.py --data-dir=datasets --config=config-e-Gskip-Dresnet --num-gpus=2 \
+  --metrics=fid30k \
+  --dataset=celeba_align_png_cropped_30k \
+  --result-dir=results/celeba_align_png_cropped_30k \
+  --data-size=30000 \
+  --attr-interesting=Bags_Under_Eyes,High_Cheekbones,Attractive
+  ```
+  where
+  - `metrics`: Evaluation metric(s). `fid30k` measures the Fréchet inception distance between 30k randomly generated samples and 30k (entire) real samples. The evaluation result is save in `results/stacked_mnist_240k/metric-fid30k.txt`.
+  - `attr-interesting`: The interesting CelebA attribute(s) (separated by comma without space) of a minority subgroup. The list of attributes refer to `celeba/Anno/list_attr_celeba.txt`. **If this argument is omitted, the entire dataset is considered to be reconstructed by IMLE.**
+  
+## Pre-trained models
+- The pre-trained Inclusive GAN models can be downloaded from:
+  - Stacked MNIST 240k
+  - CelebA 30k
+  - CelebA 30k Eyeglasses inclusion
+  - CelebA 30k Bald inclusion
+  - CelebA 30k Narrow_Eyes,Heavy_Makeup inclusion
+  - CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive inclusion
+  - Unzip and put under `models/`.
