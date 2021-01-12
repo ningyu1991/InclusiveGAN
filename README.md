@@ -49,7 +49,7 @@ Generative Adversarial Networks (GANs) have brought about rapid progress towards
 
 ## Datasets
 We experiment on two datasets:
-- Preliminary study on Stacked MNIST dataset. We synthesize 240k images by stacking the RGB channels with random MNIST images, resulting in 1,000 discrete modes (10 digit modes for each of the 3 channels). We zero-pad the image from size 28x28 to size 32x32. To prepare the dataset, first download the [MNIST .gz files](http://yann.lecun.com/exdb/mnist/) to `mnist/`, then run
+- Preliminary study on **Stacked MNIST** dataset. We synthesize 240k images by stacking the RGB channels with random MNIST images, resulting in 1,000 discrete modes (10 digit modes for each of the 3 channels). We zero-pad the image from size 28x28 to size 32x32. To prepare the dataset, first download the [MNIST .gz files](http://yann.lecun.com/exdb/mnist/) to `mnist/`, then run
   ```
   python3 dataset_tool.py create_mnistrgb \
   datasets/stacked_mnist_240k/ \
@@ -57,7 +57,7 @@ We experiment on two datasets:
   --num_images 240000
   ```
   where `datasets/stacked_mnist_240k/` is the output directory containing the prepared data format that enables efficient streaming for our training.
-- Main study including minority inclusion on CelebA dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [CelebA aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
+- Main study including minority inclusion on **CelebA** dataset. We use the first 30k images and crop them centered at (x,y) = (89,121) with size 128x128. To prepare the dataset, first download and unzip the [CelebA aligned png images](https://drive.google.com/open?id=0B7EVK8r0v71pWEZsZE9oNnFzTm8) to `celeba/Img/`, then run
   ```
   python3 dataset_tool.py create_celeba \
   datasets/celeba_align_png_cropped_30k/ \
@@ -67,7 +67,7 @@ We experiment on two datasets:
   where `datasets/celeba_align_png_cropped_30k/` is the output directory containing the prepared data format that enables efficient streaming for our training, and `celeba/Img/img_align_celeba_png/` is the input directory containing CelebA png files.
 
 ## Training
-- For Stacked MNIST, run, e.g.,
+- For **Stacked MNIST**, run, e.g.,
   ```
   python3 run_training.py --data-dir=datasets --config=config-e-Gskip-Dresnet --num-gpus=2 \
   --metrics=mode_counts_24k,KL24k \
@@ -78,7 +78,7 @@ We experiment on two datasets:
   where
   - `metrics`: Evaluation metric(s). `mode_counts_24k` counts for the digit modes (max 1,000) of 24k randomly generated samples. `KL24k` measures their KL divergence to the uniform distribution. The evaluation results are saved in `results/stacked_mnist_240k/metric-mode_counts_24k.txt` and `results/stacked_mnist_240k/metric-KL24k.txt` respectively.
   - `result-dir` also contains real samples `arb-reals.png`, randomly generated samples at different snapshots `arb-fakes-*.png`, real samples for IMLE reconstruction `rec-reals.png`, generated samples at different snapshots for those reconstructions `rec-fakes-*.png`, log file `log.txt`, tensorboard plots `events.out.tfevents.*`, and so on.
-- For CelebA, run, e.g.,
+- For **CelebA**, run, e.g.,
   ```
   python3 run_training.py --data-dir=datasets --config=config-e-Gskip-Dresnet --num-gpus=2 \
   --metrics=fid30k \
@@ -100,3 +100,22 @@ We experiment on two datasets:
   - [CelebA 30k Narrow_Eyes,Heavy_Makeup inclusion](https://drive.google.com/file/d/1B94OFdbyMzBL3oKA_o-waj3ytDGL3P8G/view?usp=sharing)
   - [CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive inclusion](https://drive.google.com/file/d/13nmgYX4PXix_2Du9v4DaZdco78QR-vT5/view?usp=sharing)
   - Unzip and put under `models/`.
+
+## Evaluation
+- **Image generation**. Run, e.g.,
+  ```
+  python3 run_generator.py generate-images \
+  --network=models/celeba_align_png_cropped_30k.pkl \
+  --result-dir=generation/celeba_align_png_cropped_30k \
+  --num-images=30000
+  ```
+  where `result-dir` contains generated samples in png.
+- **Precision and Recall calculation**. Clone [this](https://github.com/msmsajjadi/precision-recall-distributions) as `precision-recall-distributions/` and install its dependencies accordingly. Then run, e.g.,
+  ```
+  python3 precision-recall-distributions/prd_from_image_folders.py \
+  --reference_dir=celeba/Img/img_align_celeba_png_cropped_30k \
+  --eval_dirs=generation/celeba_align_png_cropped_30k/00000-generate-images \
+  --eval_labels test_model
+  ```
+  where
+  - `reference_dir`: The directory containing reference real images in png. 
