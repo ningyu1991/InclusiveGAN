@@ -110,6 +110,7 @@ We experiment on two datasets:
   --num-images=30000
   ```
   where `result-dir` contains generated samples in png.
+  
 - **Precision and Recall calculation**. Clone [this repository](https://github.com/msmsajjadi/precision-recall-distributions) as `precision-recall-distributions/` and install its dependencies accordingly. Then run, e.g.,
   ```
   python3 precision-recall-distributions/prd_from_image_folders.py \
