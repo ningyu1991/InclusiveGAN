@@ -97,10 +97,10 @@ We experiment on two datasets:
 - The pre-trained Inclusive GAN models can be downloaded from:
   - [Stacked MNIST 240k](https://drive.google.com/file/d/1K8gPgaUcAfukR7tQjPHQXwI52AErgr9-/view?usp=sharing)
   - [CelebA 30k](https://drive.google.com/file/d/1C8j0nTmoWFMI3O8l5-xpXz4DT_Ha3sI0/view?usp=sharing)
-  - [CelebA 30k Eyeglasses inclusion](https://drive.google.com/file/d/1AMIUKiPoibdwCruEGAVtXmNCvuIhPOBR/view?usp=sharing)
-  - [CelebA 30k Bald inclusion](https://drive.google.com/file/d/11dvlFb2Z87eMdxJmML3vWJzkripuYBZA/view?usp=sharing)
-  - [CelebA 30k Narrow_Eyes,Heavy_Makeup inclusion](https://drive.google.com/file/d/1B94OFdbyMzBL3oKA_o-waj3ytDGL3P8G/view?usp=sharing)
-  - [CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive inclusion](https://drive.google.com/file/d/13nmgYX4PXix_2Du9v4DaZdco78QR-vT5/view?usp=sharing)
+  - [CelebA 30k Eyeglasses-inclusion](https://drive.google.com/file/d/1AMIUKiPoibdwCruEGAVtXmNCvuIhPOBR/view?usp=sharing)
+  - [CelebA 30k Bald-inclusion](https://drive.google.com/file/d/11dvlFb2Z87eMdxJmML3vWJzkripuYBZA/view?usp=sharing)
+  - [CelebA 30k Narrow_Eyes,Heavy_Makeup-inclusion](https://drive.google.com/file/d/1B94OFdbyMzBL3oKA_o-waj3ytDGL3P8G/view?usp=sharing)
+  - [CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive-inclusion](https://drive.google.com/file/d/13nmgYX4PXix_2Du9v4DaZdco78QR-vT5/view?usp=sharing)
   - Unzip and put under `models/`.
 
 ## Evaluation
@@ -113,7 +113,7 @@ We experiment on two datasets:
   ```
   where `result-dir` contains generated samples in png.
   
-- **Precision and Recall calculation**. Clone [this repository](https://github.com/msmsajjadi/precision-recall-distributions) as `precision-recall-distributions/` and install its dependencies accordingly. Then run, e.g.,
+- **Precision and Recall calculation**. Run, e.g.,
   ```
   python3 precision-recall-distributions/prd_from_image_folders.py \
   --reference_dir=celeba/Img/img_align_celeba_png_cropped_30k \
