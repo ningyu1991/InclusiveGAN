@@ -43,7 +43,7 @@ Generative Adversarial Networks (GANs) have brought about rapid progress towards
 - NVIDIA GPU + CUDA 10.0 + CuDNN 7.5
 - Python 3.6
 - tensorflow-gpu 1.14
-- Other Python dependencies: numpy, scipy, Pillow, skimage, sklearn, six
+- To install the other Python dependencies, run `pip3 install -r requirements.txt`.
 - [DCI](https://www.math.ias.edu/~ke.li/projects/dci/) for fast kNN search. Follow the instructions in `dci_code/Makefile` to specify paths to BLAS, Python, NumPy in the file, and build the DCI Python interface.
 - [Precision and Recall](https://github.com/ningyu1991/InclusiveGAN/tree/master/precision-recall-distributions) calculation. `pip3 install -r precision-recall-distributions/requirements.txt`
 
