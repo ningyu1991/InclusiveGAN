@@ -637,7 +637,7 @@ def create_celebahq(tfrecord_dir, out_img_dir, celeba_dir, delta_dir, num_thread
 
 #----------------------------------------------------------------------------
 
-def create_from_images(tfrecord_dir, image_dir, shuffle=1, num_images=0, num_shifts=0):
+def create_from_images(tfrecord_dir, image_dir, shuffle=1, resolution=256, num_images=0, num_shifts=0):
     print('Loading images from "%s"' % image_dir)
     image_filenames = sorted(glob.glob(os.path.join(image_dir, '*.png')))
     if shuffle:
@@ -666,6 +666,11 @@ def create_from_images(tfrecord_dir, image_dir, shuffle=1, num_images=0, num_shi
                 error('Input images must be stored as RGB or grayscale')
             if channels == 1:
                 img = np.dstack((img, img, img)) # HW => CHW
+            crop = np.min(img.shape[:2])
+            img = img[(img.shape[0] - crop) // 2 : (img.shape[0] + crop) // 2, (img.shape[1] - crop) // 2 : (img.shape[1] + crop) // 2]
+            img = PIL.Image.fromarray(img, 'RGB')
+            img = img.resize((resolution, resolution), PIL.Image.ANTIALIAS)
+            img = np.asarray(img)
             img = img.transpose(2, 0, 1) # HWC => CHW
             tfr.add_image(img)
 
@@ -774,14 +779,9 @@ def execute_cmdline(argv):
     p.add_argument(     'tfrecord_dir',     help='New dataset directory to be created')
     p.add_argument(     'image_dir',        help='Directory containing the images')
     p.add_argument(     '--shuffle',        help='Randomize image order (default: 1)', type=int, default=1)
+    p.add_argument(     '--resolution',     help='Output resolution (default: 256)', type=int, default=256)
     p.add_argument(     '--num_images',     help='Number of images to be considered (default: all)', type=int, default=0)
     p.add_argument(     '--num_shifts',     help='Number of image index shifts to be considered (default: 0)', type=int, default=0)
-
-    p = add_command(    'create_from_animal_faces', 'Create dataset from an animal face directory',
-                                            'create_from_images datasets/mydataset myimagedir')
-    p.add_argument(     'tfrecord_dir',     help='New dataset directory to be created')
-    p.add_argument(     'image_dir',        help='Directory containing the images')
-    p.add_argument(     '--shuffle',        help='Randomize image order (default: 1)', type=int, default=1)
 
     p = add_command(    'create_from_hdf5', 'Create dataset from legacy HDF5 archive.',
                                             'create_from_hdf5 datasets/celebahq ~/downloads/celeba-hq-1024x1024.h5')
