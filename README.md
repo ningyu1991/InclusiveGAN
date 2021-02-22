@@ -78,7 +78,7 @@ We experiment on two datasets:
   ```
   where
   - `metrics`: Evaluation metric(s). `mode_counts_24k` counts for the digit modes (max 1,000) of 24k randomly generated samples. `KL24k` measures their KL divergence to the uniform distribution. The evaluation results are saved in `results/stacked_mnist_240k/metric-mode_counts_24k.txt` and `results/stacked_mnist_240k/metric-KL24k.txt` respectively.
-  - `result-dir` also contains real samples `arb-reals.png`, randomly generated samples at different snapshots `arb-fakes-*.png`, real samples for IMLE reconstruction `rec-reals.png`, generated samples at different snapshots for those reconstructions `rec-fakes-*.png`, log file `log.txt`, tensorboard plots `events.out.tfevents.*`, and so on.
+  - `result-dir` contains model snapshots `network-snapshot-*.pkl`, real samples `arb-reals.png`, randomly generated samples `arb-fakes-*.png` at different snapshots, real samples for IMLE reconstruction `rec-reals.png`, generated samples `rec-fakes-*.png` for those reconstructions at different snapshots, log file `log.txt`, tensorboard plots `events.out.tfevents.*`, and so on.
   
 - For **CelebA**, run, e.g.,
   ```
