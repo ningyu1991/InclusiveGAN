@@ -94,14 +94,13 @@ We experiment on two datasets:
   - `attr-interesting`: The interesting CelebA attribute(s) (separated by comma without space) of a minority subgroup. The list of attributes refer to `celeba/Anno/list_attr_celeba.txt`. **If this argument is omitted, the entire dataset is considered to be reconstructed by IMLE.**
   
 ## Pre-trained models
-- The pre-trained Inclusive GAN models can be downloaded from:
+- The pre-trained Inclusive GAN models can be downloaded from links below. Put them under `models/`.
   - [Stacked MNIST 240k](https://drive.google.com/file/d/1K8gPgaUcAfukR7tQjPHQXwI52AErgr9-/view?usp=sharing)
   - [CelebA 30k](https://drive.google.com/file/d/1C8j0nTmoWFMI3O8l5-xpXz4DT_Ha3sI0/view?usp=sharing)
   - [CelebA 30k Eyeglasses-inclusion](https://drive.google.com/file/d/1AMIUKiPoibdwCruEGAVtXmNCvuIhPOBR/view?usp=sharing)
   - [CelebA 30k Bald-inclusion](https://drive.google.com/file/d/11dvlFb2Z87eMdxJmML3vWJzkripuYBZA/view?usp=sharing)
   - [CelebA 30k Narrow_Eyes,Heavy_Makeup-inclusion](https://drive.google.com/file/d/1B94OFdbyMzBL3oKA_o-waj3ytDGL3P8G/view?usp=sharing)
   - [CelebA 30k Bags_Under_Eyes,High_Cheekbones,Attractive-inclusion](https://drive.google.com/file/d/13nmgYX4PXix_2Du9v4DaZdco78QR-vT5/view?usp=sharing)
-  - Unzip and put under `models/`.
 
 ## Evaluation
 - **Fréchet inception distance (FID) calculation**. Besides the FID calculation for snapshots during training, we can also calculate FID given any well-trained network and reference real images. Run, e.g.,
@@ -159,6 +158,6 @@ We experiment on two datasets:
   ```
 
 ## Acknowledgement
-- This project was partially funded by DARPA MediFor program under cooperative agreement FA87501620191 and by ONR MURI N00014-14-1-0671.
+- This project was partially funded by DARPA MediFor program under cooperative agreement FA87501620191 and by ONR MURI N00014-14-1-0671. Any opinions, findings, conclusions, or recommendations expressed in this material are those of the authors and do not necessarily reflect the views of the DARPA or ONR MURI.
 - We acknowledge [Richard Zhang](http://richzhang.github.io/) and [Dingfan Chen](https://cispa.de/en/people/dingfan.chen#publications) for their constructive advice in general.
 - We express gratitudes to the [StyleGAN2 repository](https://github.com/NVlabs/stylegan2) as our code was directly modified from theirs. We also thank the [precision-recall-distributions repository](https://github.com/msmsajjadi/precision-recall-distributions) for precision and recall calculation.
