@@ -1,7 +1,7 @@
 # Inclusive GAN
 
 ### [Inclusive GAN: Improving Data and Minority Coverage in Generative Models](https://arxiv.org/pdf/2004.03355.pdf)
-[Ning Yu](https://ningyu1991.github.io/), [Ke Li](https://www.math.ias.edu/~ke.li/), [Peng Zhou](https://pengzhou1108.github.io/), [Jitendra Malik](http://people.eecs.berkeley.edu/~malik/), [Larry Davis](http://users.umiacs.umd.edu/~lsd/), [Mario Fritz](https://cispa.saarland/group/fritz/)<br>
+[Ning Yu](https://ningyu1991.github.io/), [Ke Li](https://www.math.ias.edu/~ke.li/), [Peng Zhou](https://pengzhou1108.github.io/), [Jitendra Malik](http://people.eecs.berkeley.edu/~malik/), [Larry Davis](https://lsd.umiacs.io/), [Mario Fritz](https://cispa.saarland/group/fritz/)<br>
 ECCV 2020
 
 ### [paper](https://arxiv.org/pdf/2004.03355.pdf) | [project page](https://ningyu1991.github.io/projects/InclusiveGAN.html) | [video (short)](https://www.youtube.com/watch?v=JbHWuLsn_zg) | [video (full)](https://www.youtube.com/watch?v=oCb4cpsQ7do&t=8s) | [media coverage in Chinese](https://mp.weixin.qq.com/s/6CCWQY8d0NoHEuMqWEp2dw)
